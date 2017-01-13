@@ -10,8 +10,6 @@ import com.axibase.tsd.client.ClientConfigurationFactory;
 import com.axibase.tsd.client.DataService;
 import com.axibase.tsd.client.HttpClientManager;
 import com.axibase.tsd.client.MetaDataService;
-import com.axibase.tsd.model.data.series.Series;
-import com.axibase.tsd.model.meta.Metric;
 import com.axibase.tsd.model.system.ClientConfiguration;
 import com.axibase.tsd.network.PlainCommand;
 import org.slf4j.Logger;
@@ -20,8 +18,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static java.lang.Boolean.TRUE;
 
 public class EnerginetTask extends TimerTask {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(EnerginetTask.class);
@@ -101,27 +97,6 @@ public class EnerginetTask extends TimerTask {
         Calendar cal = Calendar.getInstance();
         cal.add(2, -1);
         return cal.getTime();
-    }
-
-    private Date retrieveMinimumLastInsertMetric() {
-        List<Metric> metrics = this.metaDataService.retrieveMetrics(this.defaultEntity, TRUE, "", null, 0);
-        if (metrics.isEmpty()) {
-            return new Date(0L);
-        }
-        Long date = Long.MAX_VALUE;
-        for (Metric metric : metrics) {
-            List<Series> seriesList = this.metaDataService.
-            log.info(metric.toString());
-            metric
-
-            if (currentTime == null) {
-                currentTime = 0L;
-            }
-            if (currentTime < date) {
-                date = currentTime;
-            }
-        }
-        return new Date(date);
     }
 
     public void run() {
