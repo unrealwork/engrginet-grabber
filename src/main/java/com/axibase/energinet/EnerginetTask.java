@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+// TODO: add logback
+// TODO: write assembly file
 public class EnerginetTask extends TimerTask {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(EnerginetTask.class);
     private static final String DOWNLOAD_PATH = "data/marketdata.xls";
