@@ -3,15 +3,10 @@ package com.axibase.energinet.extractors;
 import com.axibase.tsd.model.data.series.Sample;
 import com.axibase.tsd.network.InsertCommand;
 import com.axibase.tsd.network.PlainCommand;
+import org.slf4j.Logger;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
+import java.util.*;
 
 public class CommandExtractor implements Extractor<Collection<PlainCommand>, String[][]> {
     Logger log = org.slf4j.LoggerFactory.getLogger(CommandExtractor.class);
@@ -49,14 +44,14 @@ public class CommandExtractor implements Extractor<Collection<PlainCommand>, Str
 
                         metric = tags.get("metric").replace(' ', '_').trim();
                         Map<String, String> commandTags = new HashMap<String, String>();
-                        for (String tagName : tags.keySet()) {
+                        for (Map.Entry<String, String> tag : tags.entrySet()) {
+                            String tagName = tag.getKey();
                             if ((!tagName.equals("metric")) && (!tagName.equals("unit"))) {
-                                commandTags.put(tagName, tags.get(tagName));
+                                commandTags.put(tagName, tag.getValue());
                             }
                         }
                         plainCommand = new InsertCommand(DEFAULT_ENTITY, metric, new Sample(date, Double.parseDouble(value)), commandTags);
                     } catch (Exception e) {
-                        this.log.warn("Fail to create network command!", e.getMessage());
                         plainCommand = null;
                     }
                 }

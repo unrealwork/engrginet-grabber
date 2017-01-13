@@ -8,13 +8,8 @@
     <!--  START SNIPPET: fileSets  -->
     <fileSets>
         <fileSet>
-            <includes>
-                <include>README*</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>src/bin</directory>
-            <outputDirectory>bin</outputDirectory>
+            <directory>src/main/script/</directory>
+            <outputDirectory>/</outputDirectory>
             <includes>
                 <include>*.sh</include>
             </includes>
@@ -22,10 +17,17 @@
             <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
-            <directory>target</directory>
-            <outputDirectory>lib</outputDirectory>
+            <directory>src/main/resources/conf/</directory>
+            <outputDirectory>/conf</outputDirectory>
             <includes>
-                <include>energinet-grabber.jar</include>
+                <include>*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>/bin</outputDirectory>
+            <includes>
+                <include>*-exec.jar</include>
             </includes>
         </fileSet>
     </fileSets>
